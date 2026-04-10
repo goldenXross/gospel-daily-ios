@@ -48,7 +48,7 @@ struct ContentView: View {
                     }
                     .frame(maxWidth: .infinity)
                     .frame(minHeight: geometry.size.height, alignment: .top)
-                    .padding(.horizontal, 26)
+                    .padding(.horizontal, 28)
                     .padding(.vertical, 12)
                 }
             }
@@ -100,26 +100,26 @@ struct ContentView: View {
     private var readingBody: some View {
         VStack(alignment: .leading, spacing: 0) {
             Text(moment.text)
-                .font(.system(size: 28, weight: .regular))
+                .font(.system(size: 27, weight: .regular))
                 .lineSpacing(15)
                 .foregroundStyle(textPrimary)
                 .multilineTextAlignment(.leading)
                 .accessibilityIdentifier("gospelMomentText")
 
-            HStack(alignment: .center, spacing: 16) {
+            HStack(alignment: .center, spacing: 12) {
                 Text(scriptureReference)
                     .font(.system(size: 17, weight: .medium))
                     .tracking(0.2)
                     .foregroundStyle(textSecondary)
                     .accessibilityIdentifier("scriptureReferenceLabel")
 
-                Spacer(minLength: 12)
+                Spacer(minLength: 4)
 
                 bookmarkButton
             }
-            .padding(.top, 36)
+            .padding(.top, 32)
         }
-        .frame(maxWidth: 448, alignment: .leading)
+        .frame(maxWidth: 420, alignment: .leading)
         .frame(maxWidth: .infinity)
     }
 
@@ -130,18 +130,18 @@ struct ContentView: View {
             Image(systemName: isBookmarked ? "bookmark.fill" : "bookmark")
                 .font(.system(size: 16, weight: .semibold))
                 .foregroundStyle(isBookmarked ? accentBlueDeep : textSecondary)
-                .frame(width: 42, height: 42)
+                .frame(width: 40, height: 40)
                 .background(
-                    RoundedRectangle(cornerRadius: 15, style: .continuous)
+                    RoundedRectangle(cornerRadius: 14, style: .continuous)
                         .fill(Color.white.opacity(0.62))
                 )
                 .overlay {
-                    RoundedRectangle(cornerRadius: 15, style: .continuous)
+                    RoundedRectangle(cornerRadius: 14, style: .continuous)
                         .stroke(accentBlue.opacity(0.16), lineWidth: 1)
                 }
         }
         .buttonStyle(.plain)
-        .shadow(color: accentBlue.opacity(0.05), radius: 10, x: 0, y: 4)
+        .shadow(color: accentBlue.opacity(0.04), radius: 8, x: 0, y: 3)
         .accessibilityIdentifier("bookmarkButton")
         .accessibilityLabel("Save moment")
         .accessibilityValue(isBookmarked ? "Saved" : "Not saved")
