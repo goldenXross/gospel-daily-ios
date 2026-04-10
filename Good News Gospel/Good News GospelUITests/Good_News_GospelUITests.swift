@@ -29,7 +29,7 @@ final class Good_News_GospelUITests: XCTestCase {
 
         let gospelName = app.staticTexts["gospelNameLabel"]
         XCTAssertTrue(gospelName.waitForExistence(timeout: 5))
-        XCTAssertEqual(gospelName.label, "John")
+        XCTAssertEqual(gospelName.label, "Gospel of John")
 
         let momentText = app.staticTexts["gospelMomentText"]
         XCTAssertTrue(momentText.exists)

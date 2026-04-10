@@ -10,14 +10,26 @@ import SwiftUI
 struct ContentView: View {
     @State private var isBookmarked = false
 
-    private let momentText = "Abide in me, and I in you. As the branch cannot bear fruit by itself unless it remains in the vine, so neither can you unless you remain in me. I am the vine. You are the branches."
+    private let moment = GospelMoment(
+        gospel: "John",
+        chapterVerse: "15:4–5",
+        text: "Abide in me, and I in you. As the branch cannot bear fruit by itself unless it remains in the vine, so neither can you unless you remain in me. I am the vine. You are the branches."
+    )
     private let accentBlue = Color(red: 0.55, green: 0.70, blue: 0.88)
     private let accentBlueDeep = Color(red: 0.36, green: 0.52, blue: 0.74)
     private let backgroundTop = Color(red: 0.98, green: 0.99, blue: 1.00)
     private let backgroundBottom = Color(red: 0.92, green: 0.96, blue: 1.00)
     private let textPrimary = Color(red: 0.18, green: 0.23, blue: 0.32)
     private let textSecondary = Color(red: 0.44, green: 0.52, blue: 0.62)
-    private let textHeader = Color(red: 0.29, green: 0.37, blue: 0.47)
+    private let textHeader = Color(red: 0.34, green: 0.42, blue: 0.52)
+
+    private var gospelTitle: String {
+        "Gospel of \(moment.gospel)"
+    }
+
+    private var scriptureReference: String {
+        "\(moment.gospel) \(moment.chapterVerse)"
+    }
 
     var body: some View {
         GeometryReader { geometry in
@@ -36,7 +48,7 @@ struct ContentView: View {
                     }
                     .frame(maxWidth: .infinity)
                     .frame(minHeight: geometry.size.height, alignment: .top)
-                    .padding(.horizontal, 20)
+                    .padding(.horizontal, 26)
                     .padding(.vertical, 12)
                 }
             }
@@ -72,9 +84,9 @@ struct ContentView: View {
             Color.clear
                 .frame(width: 18, height: 18)
 
-            Text("John")
-                .font(.system(size: 19, weight: .semibold))
-                .tracking(0.4)
+            Text(gospelTitle)
+                .font(.system(size: 16, weight: .semibold))
+                .tracking(0.2)
                 .foregroundStyle(textHeader)
                 .accessibilityIdentifier("gospelNameLabel")
                 .accessibilityAddTraits(.isHeader)
@@ -87,15 +99,15 @@ struct ContentView: View {
 
     private var readingBody: some View {
         VStack(alignment: .leading, spacing: 0) {
-            Text(momentText)
-                .font(.system(size: 30, weight: .regular))
-                .lineSpacing(14)
+            Text(moment.text)
+                .font(.system(size: 28, weight: .regular))
+                .lineSpacing(15)
                 .foregroundStyle(textPrimary)
                 .multilineTextAlignment(.leading)
                 .accessibilityIdentifier("gospelMomentText")
 
             HStack(alignment: .center, spacing: 16) {
-                Text("John 15:4–5")
+                Text(scriptureReference)
                     .font(.system(size: 17, weight: .medium))
                     .tracking(0.2)
                     .foregroundStyle(textSecondary)
@@ -107,7 +119,7 @@ struct ContentView: View {
             }
             .padding(.top, 36)
         }
-        .frame(maxWidth: 520, alignment: .leading)
+        .frame(maxWidth: 448, alignment: .leading)
         .frame(maxWidth: .infinity)
     }
 
@@ -159,8 +171,14 @@ struct ContentView: View {
             )
             .accessibilityIdentifier("doneForNowButton")
         }
-        .frame(maxWidth: 520)
+        .frame(maxWidth: 448)
     }
+}
+
+private struct GospelMoment {
+    let gospel: String
+    let chapterVerse: String
+    let text: String
 }
 
 private struct MomentActionButtonStyle: ButtonStyle {
