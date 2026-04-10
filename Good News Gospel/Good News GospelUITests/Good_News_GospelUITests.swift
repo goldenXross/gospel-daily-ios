@@ -23,14 +23,34 @@ final class Good_News_GospelUITests: XCTestCase {
     }
 
     @MainActor
-    func testExample() throws {
-        // UI tests must launch the application that they test.
+    func testReadingScreenRendersAndTogglesBookmark() throws {
         let app = XCUIApplication()
         app.launch()
 
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // XCUIAutomation Documentation
-        // https://developer.apple.com/documentation/xcuiautomation
+        let gospelName = app.staticTexts["gospelNameLabel"]
+        XCTAssertTrue(gospelName.waitForExistence(timeout: 5))
+        XCTAssertEqual(gospelName.label, "Gospel of John")
+
+        let momentText = app.staticTexts["gospelMomentText"]
+        XCTAssertTrue(momentText.exists)
+        XCTAssertEqual(
+            momentText.label,
+            "Abide in me, and I in you. As the branch cannot bear fruit by itself unless it remains in the vine, so neither can you unless you remain in me. I am the vine. You are the branches."
+        )
+
+        let reference = app.staticTexts["scriptureReferenceLabel"]
+        XCTAssertTrue(reference.exists)
+        XCTAssertEqual(reference.label, "John 15:4–5")
+
+        let bookmarkButton = app.buttons["bookmarkButton"]
+        XCTAssertTrue(bookmarkButton.exists)
+        XCTAssertEqual(bookmarkButton.value as? String, "Not saved")
+
+        bookmarkButton.tap()
+        XCTAssertEqual(bookmarkButton.value as? String, "Saved")
+
+        XCTAssertTrue(app.buttons["keepReadingButton"].exists)
+        XCTAssertTrue(app.buttons["doneForNowButton"].exists)
     }
 
     @MainActor
